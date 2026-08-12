@@ -11,7 +11,7 @@ export type CategoryName = {
   [key: string]: string
 }
 
-export const CATEGORIES = {
+export const Categories = {
   categories: {
     id: 'root',
     parent_category_id: '',
