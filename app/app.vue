@@ -1,11 +1,14 @@
 <script lang="ts" setup>
+import CategoryNavigationMenu from '~/components/CategoryNavigationMenu.vue'
+
 const open = ref<boolean>(false)
 </script>
 
 <template>
   <UApp>
     <UHeader
-      :ui="{ container: 'max-w-none px-4' }"
+      :ui="{ container: 'max-w-none sm:px-4 lg:px-4 xl:px-4 lg:px-4 xl:px-4' }"
+      title="Bestseller"
       toggle-side="left"
     >
       <template #toggle>
@@ -18,7 +21,7 @@ const open = ref<boolean>(false)
         />
       </template>
     </UHeader>
-    <div class="flex">
+    <div class="flex ">
       <USidebar
         v-model:open="open"
         :ui="{
@@ -28,11 +31,14 @@ const open = ref<boolean>(false)
         }"
         close
         collapsible="icon"
-      />
-
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
+      >
+        <CategoryNavigationMenu />
+      </USidebar>
+      <div class="min-w-0 flex-1 p-0">
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
+      </div>
     </div>
     <UFooter />
   </UApp>
