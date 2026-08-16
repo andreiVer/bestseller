@@ -1,5 +1,5 @@
-import { CATEGORIES } from '~~/types/categories.ts'
+import { CATEGORIES } from '~~/types/categories.ts';
 
 export default defineEventHandler(() => {
-  return CATEGORIES.categories.categories
-})
+  return CATEGORIES.categories.categories;
+});
