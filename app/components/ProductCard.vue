@@ -48,7 +48,10 @@ function handleClickOnSize(size: ProductSize) {
     class="h-full"
     variant="soft"
   >
-    <NuxtLink :to="`/products/${product.id}`">
+    <NuxtLink
+      :to="{ name: 'products-id', params: { id: product.id } }"
+      prefetch-on="interaction"
+    >
       <div>
         <NuxtImg
           v-if="productImage"
