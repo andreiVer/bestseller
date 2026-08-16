@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import CategoryNavigationMenu from '~/components/CategoryNavigationMenu.vue'
+import CategoryNavigationMenu from '~/components/CategoryNavigationMenu.vue';
 
-const open = ref<boolean>(false)
+const open = ref<boolean>(false);
 </script>
 
 <template>

@@ -1,30 +1,30 @@
 <script lang="ts" setup>
-import type { NavigationMenuItem } from '@nuxt/ui/components/NavigationMenu.d.vue.ts'
-import type { Category } from '~~/types/categories.ts'
+import type { NavigationMenuItem } from '@nuxt/ui/components/NavigationMenu.d.vue.ts';
+import type { Category } from '~~/types/categories.ts';
 
 const {
   data: categories
 } = await useAsyncData<Category[]>('categories', () => $fetch('/api/categories'), {
-  immediate: true,
-  default: () => []
-})
+  default: () => [],
+  immediate: true
+});
 
 const categoriesForMenuList = computed<NavigationMenuItem[]>(() => categories.value.map((category: Category) => convertCategoryArrayToMenuItem(category))
-)
+);
 
 function convertCategoryArrayToMenuItem(categoryArray: Category): NavigationMenuItem {
-  const { name, id, categories, icon } = categoryArray
+  const { categories, icon, id, name } = categoryArray;
   return ({
-    label: name.en || name.dk,
+    children: categories && categories.length ? categories.map(category => convertCategoryArrayToMenuItem(category)) : undefined,
     icon: icon,
+    label: name.en || name.dk,
     to: categories && categories.length
       ? undefined
       : {
           path: `/products/${id}`,
-          query: { category: id, minPrice: 12, maxPrice: 15 }
-        },
-    children: categories && categories.length ? categories.map(category => convertCategoryArrayToMenuItem(category)) : undefined
-  })
+          query: { category: id, maxPrice: 15, minPrice: 12 }
+        }
+  });
 }
 </script>
 
