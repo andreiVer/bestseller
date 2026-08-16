@@ -23,7 +23,7 @@ export type Product = {
   color: string
   size: ProductSize[]
   name: LocalizedProductName
-  images: string[]
+  images?: string[]
   categories: Category['id'][]
   variant?: ProductVariant[]
 };
@@ -339,7 +339,7 @@ export const PRODUCTS
         36,
         38
       ],
-      stock: 'Unlimited'
+      stock: UNLIMITED_STOCK
     },
     {
       brand: 'Jack & Jones',
@@ -590,7 +590,7 @@ export const PRODUCTS
         36,
         38
       ],
-      stock: 'Unlimited'
+      stock: UNLIMITED_STOCK
     },
     {
       brand: 'Jack & Jones',
@@ -623,7 +623,7 @@ export const PRODUCTS
         36,
         38
       ],
-      stock: 'Unlimited'
+      stock: UNLIMITED_STOCK
     },
     {
       brand: 'Jack & Jones',
@@ -794,7 +794,7 @@ export const PRODUCTS
             'XXL',
             '3XL'
           ],
-          stock: 'Unlimited'
+          stock: UNLIMITED_STOCK
         }
       ]
     },

@@ -3,7 +3,7 @@ export type Category = {
   name: CategoryName
   parent_category_id: string
   level: number
-  categories: Category[]
+  categories?: Category[]
   icon?: string
 };
 
