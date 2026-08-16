@@ -1,6 +1,6 @@
 import type { Product } from '~~/types/products.ts';
 
-const products = ref<Product[]>();
+const products = ref<Product[]>([]);
 const hasProductsLoaded = ref<boolean>(false);
 const isLoadingProducts = ref<boolean>(false);
 
