@@ -21,8 +21,8 @@ function convertCategoryArrayToMenuItem(categoryArray: Category): NavigationMenu
     to: categories && categories.length
       ? undefined
       : {
-          path: `/products/${id}`,
-          query: { category: id, maxPrice: 15, minPrice: 12 }
+          path: `/categories/${id}`,
+          query: { category: id }
         }
   });
 }
