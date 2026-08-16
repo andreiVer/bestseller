@@ -15,6 +15,12 @@ export type ProductVariant = {
   images?: string[]
 };
 
+export type ProductConfiguration = {
+  color: Product['color']
+  price: Product['price']
+  size: ProductSize
+};
+
 export type Product = {
   id: number
   brand: string

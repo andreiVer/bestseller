@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { BadgeProps } from '@nuxt/ui/components/Badge.vue';
 
-import { type Product, type ProductSize, UNLIMITED_STOCK } from '~~/types/products.ts';
+import { type Product, type ProductSize, UNLIMITED_STOCK } from '~~/types/Products.ts';
 
 type Props = {
   product: Product
@@ -59,6 +59,8 @@ function handleClickOnSize(size: ProductSize) {
           class="size-full aspect-3/3 object-cover
           transition-transform duration-300
           hover:scale-[1.02]"
+          loading="lazy"
+          preload
         />
         <UIcon
           v-else
@@ -98,7 +100,14 @@ function handleClickOnSize(size: ProductSize) {
       </div>
     </div>
 
-    <div class="mt-auto self-end mb-2 mr-2 pt-2">
+    <div class="w-full flex gap-2 justify-between items-center mt-auto self-end mb-2 mr-2 pt-5">
+      <UButton
+        class="ml-4 cursor-pointer"
+        color="neutral"
+        size="xs"
+      >
+        Add to basket
+      </UButton>
       <span class="text-highlighted font-bold">
         {{ product.price }} DKK
       </span>

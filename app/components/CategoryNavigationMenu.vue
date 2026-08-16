@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { NavigationMenuItem } from '@nuxt/ui/components/NavigationMenu.d.vue.ts';
-import type { Category } from '~~/types/categories.ts';
+import type { Category } from '~~/types/Categories.ts';
 
 const {
   data: categories

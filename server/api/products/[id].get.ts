@@ -1,4 +1,4 @@
-import { PRODUCTS } from '~~/types/products.ts';
+import { PRODUCTS } from '~~/types/Products.ts';
 
 export default defineEventHandler((event) => {
   const productId = Number(getRouterParam(event, 'id'));
