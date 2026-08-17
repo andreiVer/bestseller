@@ -74,24 +74,23 @@ const gridItems = computed<GridItem[]>(() => {
   <UPageGrid
     v-else
     class="
-    grid-cols-2 gap-4
+    grid-cols-2 gap-4 grid-flow-row-dense
     lg:grid-cols-3
     xl:grid-cols-4
   "
   >
-    <div
+    <template
       v-for="item in gridItems"
-      :key="item.id"
+      :key="`${item.type}-${item.id}`"
     >
       <ProductCard
         v-if="item.type === 'product'"
-        :key="item.id"
         :product="item.product"
       />
       <PromotionalCard
         v-else
         :promotion="item.promotion"
       />
-    </div>
+    </template>
   </UPageGrid>
 </template>
