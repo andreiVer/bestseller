@@ -1,13 +1,30 @@
 <script lang="ts" setup>
-import { PRICE_SORTING_KEYS } from '~~/types/Products.ts';
+import type { PromotionalSpot } from '~~/types/Promotions.ts';
+
+import { PRICE_SORTING_KEYS, type Product } from '~~/types/Products.ts';
+
+import { usePromotions } from '~/composables/promotions.ts';
+
+type GridItem = {
+  id: number
+  type: 'product'
+  product: Product
+} | {
+  id: number
+  type: 'promotion'
+  promotion: PromotionalSpot
+};
 
 const { getProducts, hasLoadedProducts, isLoadingProducts, products } = useProducts();
+const { getPromotions, promotions } = usePromotions();
 
-const shouldShowLoader = computed(() => !hasLoadedProducts.value || isLoadingProducts.value);
+const route = useRoute();
 
 getProducts();
 
-const route = useRoute();
+getPromotions();
+
+const shouldShowLoader = computed(() => !hasLoadedProducts.value || isLoadingProducts.value);
 
 const visibleProducts = computed(() => {
   let result = [...products.value];
@@ -26,6 +43,26 @@ const visibleProducts = computed(() => {
 
   return result;
 });
+
+const gridItems = computed<GridItem[]>(() => {
+  const items: GridItem[] = visibleProducts.value.map(product => ({
+    id: Number(product.id),
+    product,
+    type: 'product'
+  }));
+
+  [...(promotions.value || [])]?.sort((a, b) => a.position - b.position).forEach((promotion: PromotionalSpot) => {
+    if (promotion.position > items.length) {
+      items.push({ id: promotion.position, promotion, type: 'promotion' });
+
+      return;
+    }
+
+    items.splice(promotion.position, 0, { id: promotion.position, promotion, type: 'promotion' });
+  });
+
+  return items;
+});
 </script>
 
 <template>
@@ -42,10 +79,19 @@ const visibleProducts = computed(() => {
     xl:grid-cols-4
   "
   >
-    <ProductCard
-      v-for="product in visibleProducts"
-      :key="product.id"
-      :product="product"
-    />
+    <div
+      v-for="item in gridItems"
+      :key="item.id"
+    >
+      <ProductCard
+        v-if="item.type === 'product'"
+        :key="item.id"
+        :product="item.product"
+      />
+      <PromotionalCard
+        v-else
+        :promotion="item.promotion"
+      />
+    </div>
   </UPageGrid>
 </template>
