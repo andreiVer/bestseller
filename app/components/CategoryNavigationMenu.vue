@@ -32,6 +32,7 @@ function convertCategoryArrayToMenuItem(categoryArray: Category): NavigationMenu
   <UNavigationMenu
     :items="categoriesForMenuList"
     :ui="{ link: 'p-1.5 overflow-hidden' }"
+    class="mt-5"
     orientation="vertical"
   />
 </template>
