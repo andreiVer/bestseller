@@ -26,6 +26,5 @@
     "eslint-plugin-perfectionist": "^5.10.1",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.9"
-  },
-  "packageManager": "pnpm@11.20.0"
+  }
 }
