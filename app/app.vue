@@ -21,7 +21,7 @@ const open = ref<boolean>(false);
         />
       </template>
     </UHeader>
-    <div class="flex ">
+    <div class="flex">
       <USidebar
         v-model:open="open"
         :ui="{
@@ -34,7 +34,7 @@ const open = ref<boolean>(false);
       >
         <CategoryNavigationMenu />
       </USidebar>
-      <div class="min-w-0 flex-1 p-0">
+      <div class="flex-1">
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>

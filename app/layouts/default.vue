@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <UContainer>
+  <UMain class="p-5">
     <slot />
-  </UContainer>
+  </UMain>
 </template>

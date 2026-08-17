@@ -40,6 +40,11 @@ const productStock = computed<Partial<BadgeProps>>(() => {
 function handleClickOnSize(size: ProductSize) {
   console.log(size);
 }
+
+function handleAddToBasket() {
+  // TODO:implementation
+  console.log('add');
+}
 </script>
 
 <template>
@@ -89,6 +94,7 @@ function handleClickOnSize(size: ProductSize) {
         <UButton
           v-for="size in product.size"
           :key="size"
+          active
           class="cursor-pointer"
           color="neutral"
           size="xs"
@@ -105,6 +111,7 @@ function handleClickOnSize(size: ProductSize) {
         class="ml-4 cursor-pointer"
         color="neutral"
         size="xs"
+        @click="handleAddToBasket"
       >
         Add to basket
       </UButton>

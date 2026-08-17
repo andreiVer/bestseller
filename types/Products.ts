@@ -22,7 +22,7 @@ export type ProductConfiguration = {
 };
 
 export type Product = {
-  id: number
+  id: number | string
   brand: string
   price: number
   stock: ProductStock
