@@ -20,6 +20,9 @@ const open = ref<boolean>(false);
           @click="open = !open"
         />
       </template>
+      <template #right>
+        <ProductFilters />
+      </template>
     </UHeader>
     <div class="flex">
       <USidebar

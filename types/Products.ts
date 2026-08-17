@@ -8,6 +8,11 @@ export type ProductSize = string;
 
 export type ProductStock = number | typeof UNLIMITED_STOCK;
 
+export const PRICE_SORTING_KEYS = {
+  asc: 'price-asc',
+  desc: 'price-desc'
+};
+
 export type ProductVariant = {
   stock: ProductStock
   color: string
