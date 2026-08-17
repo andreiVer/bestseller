@@ -34,7 +34,7 @@ const open = ref<boolean>(false);
       >
         <CategoryNavigationMenu />
       </USidebar>
-      <div class="flex-1">
+      <div class="min-w-0 max-w-full flex-1">
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>

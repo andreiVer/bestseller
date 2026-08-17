@@ -90,11 +90,13 @@ watch(variantColors, (newValue, oldValue) => {
   <UContainer
     v-else
   >
-    <UBreadcrumb :items="breadcrumbItems" />
-    <div class="grid gap-4 grid-cols-[auto_1fr]">
-      <div class="grid gap-4 grid-cols-[auto_1fr] mt-6 items-start">
+    <UBreadcrumb
+      :items="breadcrumbItems"
+    />
+    <div class="grid gap-4  min-w-0 grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div class="grid gap-4 mt-6 min-w-0 sm:grid-cols-[auto_minmax(0,1fr)] ">
         <UPageList
-          class="gap-1.5"
+          class="gap-1.5 pb-1 sm:pb-0 order-2 sm:order-1 min-w-0 flex-row sm:flex-col"
         >
           <button
             v-for="image in imagesForActiveVariant"
@@ -118,10 +120,10 @@ watch(variantColors, (newValue, oldValue) => {
           :key="activeImage"
           :alt="getNameOfProduct(productDetails)"
           :src="activeImage"
-          class="w-107.5"
+          class="order-1 sm:order-2 w-full min-w-0 max-w-107.5"
         />
       </div>
-      <UPageList>
+      <UPageList class="min-w-0">
         <UPageHeader
           :description="`${productDetails.price}DKK`"
           :headline="productDetails.brand"
@@ -134,7 +136,7 @@ watch(variantColors, (newValue, oldValue) => {
           class="mt-5"
         >
           <legend>Available variants</legend>
-          <UFieldGroup class="gap-1">
+          <UFieldGroup class="flex flex-wrap gap-1">
             <div
               v-for="color in variantColors"
               :key="color"
@@ -145,6 +147,7 @@ watch(variantColors, (newValue, oldValue) => {
                 :label="color"
                 active-color="primary"
                 active-variant="solid"
+                class="capitalize"
                 color="neutral"
                 variant="subtle"
                 @click="handleClickOnVariant(color)"
@@ -157,7 +160,7 @@ watch(variantColors, (newValue, oldValue) => {
           class="mt-5"
         >
           <legend>Available Sizes</legend>
-          <UFieldGroup class="gap-1">
+          <UFieldGroup class="flex flex-wrap gap-1">
             <UButton
               v-for="size in activeVariant.size"
               :key="size"
@@ -174,14 +177,13 @@ watch(variantColors, (newValue, oldValue) => {
         <UButton
           :disabled="!canAddToBasket"
           :icon="hasAddedToBasket ? 'i-lucide-check' : 'i-lucide-shopping-bag'"
+          :label="hasAddedToBasket ? 'Added to basket' : !activeSize ? 'Select a size' : 'Add to basket'"
           block
           class="justify-center mt-5"
           color="neutral"
           size="xl"
           @click="handleAddToBasket"
-        >
-          {{ hasAddedToBasket ? 'Added to basket' : !activeSize ? 'Select a size' : 'Add to basket' }}
-        </UButton>
+        />
       </UPageList>
     </div>
   </UContainer>
