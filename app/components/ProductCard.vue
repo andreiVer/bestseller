@@ -13,11 +13,12 @@ const productImage = computed(() => props.product?.images && props.product.image
 const productName = computed(() => product.value?.name.en || product.value?.name.dk || '');
 
 function handleClickOnSize(size: ProductSize) {
+  // TODO:implemetation - see product page
   console.log(size);
 }
 
 function handleAddToBasket() {
-  // TODO:implementation
+  // TODO:implementation-see product page
   console.log('add');
 }
 </script>
