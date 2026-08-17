@@ -4,7 +4,7 @@ export const UNLIMITED_STOCK = 'UNLIMITED';
 
 export type LocalizedProductName = { [key: string]: string };
 
-export type ProductSize = string | number;
+export type ProductSize = string;
 
 export type ProductStock = number | typeof UNLIMITED_STOCK;
 
