@@ -27,4 +27,11 @@ export const useBasketStore = defineStore('basketStore', () => {
 
     productBasket.value.set(product.id, config);
   }
+  return {
+    addProductToBasket,
+    clearBasket,
+    productBasket,
+    removeProductFromBasket,
+    updateBasket
+  };
 });

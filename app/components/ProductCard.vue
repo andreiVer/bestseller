@@ -13,29 +13,6 @@ const product = computed<Props['product']>(() => props.product);
 const productImage = computed(() => props.product?.images && props.product.images.length ? props.product?.images[0] : undefined);
 
 const productName = computed(() => product.value?.name.en || product.value?.name.dk || '');
-const productStock = computed<Partial<BadgeProps>>(() => {
-  if (!product.value?.stock) {
-    return { color: 'error', label: `Out of stock` };
-  }
-
-  if (typeof product.value.stock === 'string' && product.value.stock === UNLIMITED_STOCK) {
-    return {
-      color: 'success',
-      label: 'in stock'
-    };
-  }
-
-  if (typeof product.value?.stock === 'number') {
-    if (product.value.stock >= 50) {
-      return { color: 'success', label: `In stock` };
-    }
-    if (product.value.stock < 50 && product.value.stock > 0) {
-      return { color: 'warning', label: `Only ${product.value.stock} in stock` };
-    }
-  }
-
-  return { color: 'error', label: `Out of stock` };
-});
 
 function handleClickOnSize(size: ProductSize) {
   console.log(size);
@@ -81,12 +58,7 @@ function handleAddToBasket() {
       <span class="text-highlighted font-semibold line-clamp-1">
         {{ productName }}
       </span>
-      <UBadge
-        :color="productStock.color"
-        :label="productStock.label"
-        class="w-fit my-2"
-        variant="outline"
-      />
+      <StockBadge :stock="product.stock" />
     </div>
     <div class="px-4 flex flex-col">
       <span class="text-xs uppercase">Size:</span>

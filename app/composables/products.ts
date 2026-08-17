@@ -1,4 +1,4 @@
-import type { Product } from '~~/types/Products.ts';
+import type { Product, ProductVariant } from '~~/types/Products.ts';
 
 const products = ref<Product[]>([]);
 const hasLoadedProducts = ref<boolean>(false);
@@ -22,8 +22,7 @@ export function useProducts() {
         signal: abortController.signal
       });
 
-      console.log(response);
-      products.value = response;
+      products.value = response.map(product => normalizeProductForVariant(product));
       hasLoadedProducts.value = true;
     } catch {
       throw createError({
@@ -35,9 +34,7 @@ export function useProducts() {
     }
   }
 
-  function getNameOfProduct(productId: Product['id']): string {
-    const product = products.value.find(product => product.id === productId);
-
+  function getNameOfProduct(product: Product): string {
     return product?.name.en || product?.name.dk || 'No name';
   }
 
@@ -48,12 +45,12 @@ export function useProducts() {
     isLoadingProductDetails.value = true;
 
     try {
-      const response = await $fetch<Product>(`/api/products/${productId}`, {
+      const result = await $fetch<Product>(`/api/products/${productId}`, {
         method: 'GET',
         signal: abortControllerForDetailsOfProduct.signal
       });
 
-      productDetails.value = response;
+      productDetails.value = normalizeProductForVariant(result);
     } catch {
       throw createError({
         statusCode: 404,
@@ -64,10 +61,49 @@ export function useProducts() {
     }
   }
 
+  function getVariantColorsForProduct(product: Product): string[] | undefined {
+    return product?.variant?.map(({ color }) => color);
+  }
+
+  function getVariantMapForProduct(product: Product): Map<ProductVariant['color'], ProductVariant> {
+    const variantMap = new Map<ProductVariant['color'], ProductVariant>();
+
+    if (product) {
+      product.variant?.forEach((variant) => {
+        variantMap.set(variant.color, variant);
+      });
+
+      // I'm adding it so there is a default. Normally I would expect all of it to be a variant.
+      variantMap.set(product?.color, { color: product.color, images: product?.images, size: product.size, stock: product.stock });
+    }
+    return variantMap;
+  }
+
+  function getImagesForProductVariant(product: Product, variant: ProductVariant['color']): ProductVariant['images'] {
+    return product?.variant?.find(({ color }) => color === variant)?.images;
+  }
+
+  function normalizeProductForVariant(product: Product): Product {
+    const { color, images, size, stock, variant } = product;
+
+    if (variant && variant.length > 0) {
+      if (variant.some(item => item.color === color)) {
+        return { ...product, variant: [...variant, { color: `${color}_1`, images, size, stock }] };
+      } else {
+        return { ...product, variant: [{ color, images, size, stock }] };
+      }
+    }
+
+    return ({ ...product, variant: variant && variant.length > 0 ? [...variant, { color, images, size, stock }] : [{ color, images, size, stock }] });
+  }
+
   return {
+    getImagesForProductVariant,
     getNameOfProduct,
     getProductDetails,
     getProducts,
+    getVariantColorsForProduct,
+    getVariantMapForProduct,
     hasLoadedProducts,
     isLoadingProductDetails,
     isLoadingProducts,

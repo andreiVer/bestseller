@@ -1,4 +1,4 @@
-import type { Category } from '~~/types/categories.ts';
+import type { Category } from '~~/types/Categories.ts';
 
 export const UNLIMITED_STOCK = 'UNLIMITED';
 
