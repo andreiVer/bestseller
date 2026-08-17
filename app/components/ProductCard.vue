@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import type { BadgeProps } from '@nuxt/ui/components/Badge.vue';
-
-import { type Product, type ProductSize, UNLIMITED_STOCK } from '~~/types/Products.ts';
+import type { Product, ProductSize } from '~~/types/Products.ts';
 
 type Props = {
   product: Product
