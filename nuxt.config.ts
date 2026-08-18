@@ -5,6 +5,21 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
+  app: {
+    head: {
+      title: 'Bestseller',
+      htmlAttrs: {
+        lang: 'en'
+      },
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ],
+      meta: [
+        { name: 'description', content: 'A Nuxt 2 page technical task for Bestseller.' }
+      ]
+    }
+
+  },
   css: ['~/assets/css/main.css'],
   routeRules: {
     '/': { prerender: true }
@@ -17,6 +32,12 @@ export default defineNuxtConfig({
         commaDangle: 'never'
       }
     }
+  },
+  image: {
+    domains: [
+      'jj-images-test.global.ssl.fastly.net',
+      'images.veromoda.com'
+    ]
   },
   pinia: { storesDirs: ['./stores/**'] }
 });
