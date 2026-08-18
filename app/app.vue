@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import CategoryNavigationMenu from '~/components/CategoryNavigationMenu.vue';
 
+const route = useRoute();
+
 const open = ref<boolean>(false);
 </script>
 
@@ -21,7 +23,7 @@ const open = ref<boolean>(false);
         />
       </template>
       <template #right>
-        <ProductFilters />
+        <ProductFilters v-if="route.name === 'index'" />
       </template>
     </UHeader>
     <div class="flex">
